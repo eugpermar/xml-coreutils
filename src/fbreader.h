@@ -3,7 +3,7 @@
  *  
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  * 
  * This program is distributed in the hope that it will be useful,
@@ -37,6 +37,6 @@ typedef struct {
 bool_t open_fileblockreader(fbreader_t *fbr, const char *path, size_t maxblocks);
 bool_t close_fileblockreader(fbreader_t *fbr);
 bool_t read_fileblockreader(fbreader_t *fbr, off_t offset, byte_t **begin, byte_t **end);
-
+bool_t touch_fileblockreader(fbreader_t *fbr, off_t offset);
 #endif
  

@@ -3,7 +3,7 @@
  *  
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  * 
  * This program is distributed in the hope that it will be useful,
@@ -29,6 +29,9 @@
 #include <sys/stat.h>
 #include <sys/fcntl.h>
 #include <string.h>
+
+#include <stdio.h>
+#include <stdarg.h>
 
 typedef struct {
   flag_t flags;
@@ -151,6 +154,7 @@ bool_t squeeze_stdout(const byte_t *buf, size_t buflen) {
       if( xstdout.pos >= xstdout.buflen ) {
 	xstdout.pos = xstdout.buflen;
 	flush_stdout();
+	p = xstdout.buf + xstdout.pos;
       }
     } while( buflen > 0);
     return TRUE;
@@ -179,6 +183,36 @@ bool_t nputc_stdout(char_t c, size_t n) {
 bool_t backspace_stdout() {
   if( xstdout.pos > 0 ) {
     xstdout.pos--;
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/* this is suitable for size < buflen only, and causes a flush
+   if there isn't enough room in the buffer */
+bool_t nprintf_stdout(size_t size, const char_t *fmt, ...) {
+  va_list vap;
+  int n = size + 1;
+
+  /* we write directly into the buffer, so make room for size bytes */
+  if( xstdout.buf && fmt ) {
+    if( xstdout.pos + size > xstdout.buflen ) {
+      flush_stdout();
+    }
+    if( xstdout.pos + size > xstdout.buflen ) {
+      return FALSE;
+    }
+  }
+
+#if HAVE_VPRINTF
+  va_start(vap, fmt);
+  n = vsnprintf((char *)(xstdout.buf + xstdout.pos), size, fmt, vap);
+  va_end(vap);
+#else
+  write_stdout(fmt, MIN(size, strlen(fmt)));
+#endif
+  if( n <= size ) {
+    xstdout.pos += n;
     return TRUE;
   }
   return FALSE;

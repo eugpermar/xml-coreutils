@@ -3,7 +3,7 @@
  *  
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  * 
  * This program is distributed in the hope that it will be useful,
@@ -33,6 +33,11 @@ bool_t write_stdout(const byte_t *buf, size_t buflen);
 bool_t puts_stdout(const char_t *s);
 bool_t putc_stdout(char_t c);
 bool_t nputc_stdout(char_t c, size_t n);
+bool_t nprintf_stdout(size_t size, const char_t *fmt, ...)
+#ifdef __GNUC__
+  __attribute__((format (printf, 2, 3)))
+#endif
+;
 bool_t write_entity_stdout(char_t c);
 
 bool_t squeeze_stdout(const byte_t *buf, size_t buflen);

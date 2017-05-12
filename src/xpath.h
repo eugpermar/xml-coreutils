@@ -3,7 +3,7 @@
  *  
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  * 
  * This program is distributed in the hope that it will be useful,
@@ -80,5 +80,6 @@ tagtype_t identify_element_xpath(const char_t *begin, const char_t *end);
 const char_t *get_last_xpath(xpath_t *xp);
 const char_t *get_full_xpath(xpath_t *xp);
 bool_t iterate_xpath(xpath_t *xp, iterator_xpath_fun *f, void *user);
+bool_t cmp_prefix_xpath(xpath_t *xp, const char_t *path);
 
 #endif

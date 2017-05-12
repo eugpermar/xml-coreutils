@@ -3,7 +3,7 @@
  *  
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  * 
  * This program is distributed in the hope that it will be useful,
@@ -446,8 +446,10 @@ bool_t redraw_cursor_display(display_t *disp, cursor_t *cursor, fbparser_t *fbp)
 
       if( parse_first_fileblockparser(fbp, cursor, &callbacks, &pos) ) {
 
-	while( parse_next_fileblockparser(fbp, &pos) );
-
+	/* this still needs logic to skip over nodes which don't get displayed. */
+	while( !checkflag(r.flags,RENDERER_DONE) &&
+	       parse_next_fileblockparser(fbp, &pos) );
+/* 	debug("REDRAW done\n"); */
       }
 
       disp->max_visible_depth = fbp->info.maxdepth;

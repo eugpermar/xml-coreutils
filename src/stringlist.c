@@ -3,7 +3,7 @@
  *  
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  * 
  * This program is distributed in the hope that it will be useful,
@@ -27,7 +27,7 @@
 bool_t create_stringlist(stringlist_t *sl) {
   if( sl ) {
     sl->num = 0;
-    return grow_mem((byte_t **)&sl->list, &sl->max, sizeof(char_t *), 16);
+    return grow_mem(&sl->list, &sl->max, sizeof(char_t *), 16);
   }
   return FALSE;
 }
@@ -36,7 +36,7 @@ bool_t free_stringlist(stringlist_t *sl) {
   if( sl ) {
     if( sl->list ) {
       reset_stringlist(sl);
-      free_mem((byte_t **)&sl->list, &sl->max);
+      free_mem(&sl->list, &sl->max);
     }
   }
   return FALSE;
@@ -61,7 +61,7 @@ const char_t *get_stringlist(stringlist_t *sl, size_t n) {
 bool_t add_stringlist(stringlist_t *sl, const char_t *name) {
   if( sl ) {
     if( sl->num >= sl->max ) {
-      grow_mem((byte_t **)&sl->list, &sl->max, sizeof(char_t *), 16);
+      grow_mem(&sl->list, &sl->max, sizeof(char_t *), 16);
     }
     if( sl->num < sl->max ) {
       sl->list[sl->num] = strdup(name);

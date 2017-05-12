@@ -3,7 +3,7 @@
  *  
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  * 
  * This program is distributed in the hope that it will be useful,
@@ -83,12 +83,10 @@ bool_t forward_skip(skip_t *skip, cursor_t *cursor, fbparser_t *fbp) {
     memset(&callbacks, 0, sizeof(fbcallback_t));
     callbacks.node = node_forward_skip;
     callbacks.user = (void *)&fw;
-
     if( parse_first_fileblockparser(fbp, cursor, NULL, &pos) ) {
 
       setup_fileblockparser(fbp, &callbacks);
       while( !fw.done && parse_next_fileblockparser(fbp, &pos) );
-
       return fw.done;
     }
   }

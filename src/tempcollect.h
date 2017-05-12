@@ -3,7 +3,7 @@
  *  
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  * 
  * This program is distributed in the hope that it will be useful,
@@ -25,12 +25,15 @@
 #include "config.h"
 #endif
 
+#include <stdio.h>
+
 typedef struct {
   const char_t *name;
   byte_t *buf;
   size_t bufpos;
   size_t buflen;
   size_t max_buflen;
+  FILE *tempfile;
 } tempcollect_t;
 
 typedef struct {
@@ -44,6 +47,11 @@ bool_t create_tempcollect(tempcollect_t *tc, const char_t *name,
 bool_t free_tempcollect(tempcollect_t *tc);
 bool_t reset_tempcollect(tempcollect_t *tc);
 bool_t write_tempcollect(tempcollect_t *tc, const byte_t *buf, size_t buflen);
+bool_t open_file_tempcollect(tempcollect_t *tc);
+bool_t flush_file_tempcollect(tempcollect_t *tc);
+bool_t load_file_tempcollect(tempcollect_t *tc);
+bool_t close_file_tempcollect(tempcollect_t *tc);
+
 bool_t write_stdout_tempcollect(tempcollect_t *tc);
 bool_t squeeze_stdout_tempcollect(tempcollect_t *tc);
 bool_t read_tempcollect(tempcollect_t *tc, byte_t *buf, size_t buflen);

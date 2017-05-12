@@ -3,7 +3,7 @@
  *  
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  * 
  * This program is distributed in the hope that it will be useful,
@@ -48,7 +48,9 @@ bool_t create_blockmanager(blockmanager_t *bm, size_t blocksize, size_t maxblock
 bool_t reset_blockmanager(blockmanager_t *bm);
 bool_t free_blockmanager(blockmanager_t *bm);
 bool_t create_block_blockmanager(blockmanager_t *bm, block_t **result);
-bool_t insert_block_blockmanager(blockmanager_t *bm, block_t *i);
+bool_t insert_block_blockmanager(blockmanager_t *bm, const block_t *i);
+bool_t remove_block_blockmanager(blockmanager_t *bm, const block_t *p);
+bool_t unlink_subtree_blockmanager(blockmanager_t *bm, const block_t *p);
 bool_t find_block_blockmanager(blockmanager_t *bm, int blockid, block_t **result);
 bool_t get_buffer_blockmanager(blockmanager_t *bm, block_t *b, byte_t **buf, size_t *len);
 

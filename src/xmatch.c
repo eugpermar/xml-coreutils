@@ -3,7 +3,7 @@
  *  
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  * 
  * This program is distributed in the hope that it will be useful,
@@ -28,7 +28,7 @@ bool_t create_xmatcher(xmatcher_t *xm) {
   if( xm ) {
     xm->xpath_count = 0;
     xm->max_xpath = 0;
-    if( !grow_mem((byte_t **)&xm->xpath, &xm->max_xpath, sizeof(char_t *), 16) ) {
+    if( !grow_mem(&xm->xpath, &xm->max_xpath, sizeof(char_t *), 16) ) {
       errormsg(E_ERROR, "cannot create xpath list\n");
       return FALSE;
     }
@@ -62,7 +62,7 @@ bool_t reset_xmatcher(xmatcher_t *xm) {
 bool_t push_xmatcher(xmatcher_t *xm, const char_t *path) {
   if( xm && xm->xpath ) {
     if( xm->xpath_count + 1 >= xm->max_xpath ) {
-      if( !grow_mem((byte_t **)&xm->xpath, &xm->max_xpath, sizeof(char_t *), 16) ) {
+      if( !grow_mem(&xm->xpath, &xm->max_xpath, sizeof(char_t *), 16) ) {
 	errormsg(E_ERROR, "cannot grow xpath list\n");
 	return FALSE;
       } 
