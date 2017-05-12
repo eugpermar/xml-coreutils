@@ -41,7 +41,7 @@ bin_PROGRAMS = xml-cat$(EXEEXT) xml-printf$(EXEEXT) xml-echo$(EXEEXT) \
 	xml-fmt$(EXEEXT) xml-wc$(EXEEXT) xml-cut$(EXEEXT) \
 	xml-head$(EXEEXT) xml-unecho$(EXEEXT) xml-sed$(EXEEXT) \
 	xml-rm$(EXEEXT) xml-cp$(EXEEXT) xml-mv$(EXEEXT) \
-	xml-fixtags$(EXEEXT) xml-awk$(EXEEXT)
+	xml-fixtags$(EXEEXT) xml-paste$(EXEEXT) xml-awk$(EXEEXT)
 check_PROGRAMS =
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
@@ -179,6 +179,11 @@ am_xml_mv_OBJECTS = xml-mv.$(OBJEXT) $(am__objects_9) \
 	$(am__objects_30) $(am__objects_31)
 xml_mv_OBJECTS = $(am_xml_mv_OBJECTS)
 xml_mv_LDADD = $(LDADD)
+am_xml_paste_OBJECTS = xml-paste.$(OBJEXT) $(am__objects_9) \
+	$(am__objects_19) $(am__objects_21) $(am__objects_30) \
+	$(am__objects_31) $(am__objects_26)
+xml_paste_OBJECTS = $(am_xml_paste_OBJECTS)
+xml_paste_LDADD = $(LDADD)
 am_xml_printf_OBJECTS = xml-printf.$(OBJEXT) $(am__objects_9) \
 	$(am__objects_19) $(am__objects_21) $(am__objects_31) \
 	$(am__objects_33) $(am__objects_20)
@@ -232,16 +237,16 @@ SOURCES = $(xml_awk_SOURCES) $(xml_cat_SOURCES) $(xml_cp_SOURCES) \
 	$(xml_cut_SOURCES) $(xml_echo_SOURCES) $(xml_file_SOURCES) \
 	$(xml_find_SOURCES) $(xml_fixtags_SOURCES) $(xml_fmt_SOURCES) \
 	$(xml_grep_SOURCES) $(xml_head_SOURCES) $(xml_less_SOURCES) \
-	$(xml_ls_SOURCES) $(xml_mv_SOURCES) $(xml_printf_SOURCES) \
-	$(xml_rm_SOURCES) $(xml_sed_SOURCES) $(xml_strings_SOURCES) \
-	$(xml_unecho_SOURCES) $(xml_wc_SOURCES)
+	$(xml_ls_SOURCES) $(xml_mv_SOURCES) $(xml_paste_SOURCES) \
+	$(xml_printf_SOURCES) $(xml_rm_SOURCES) $(xml_sed_SOURCES) \
+	$(xml_strings_SOURCES) $(xml_unecho_SOURCES) $(xml_wc_SOURCES)
 DIST_SOURCES = $(xml_awk_SOURCES) $(xml_cat_SOURCES) $(xml_cp_SOURCES) \
 	$(xml_cut_SOURCES) $(xml_echo_SOURCES) $(xml_file_SOURCES) \
 	$(xml_find_SOURCES) $(xml_fixtags_SOURCES) $(xml_fmt_SOURCES) \
 	$(xml_grep_SOURCES) $(xml_head_SOURCES) $(xml_less_SOURCES) \
-	$(xml_ls_SOURCES) $(xml_mv_SOURCES) $(xml_printf_SOURCES) \
-	$(xml_rm_SOURCES) $(xml_sed_SOURCES) $(xml_strings_SOURCES) \
-	$(xml_unecho_SOURCES) $(xml_wc_SOURCES)
+	$(xml_ls_SOURCES) $(xml_mv_SOURCES) $(xml_paste_SOURCES) \
+	$(xml_printf_SOURCES) $(xml_rm_SOURCES) $(xml_sed_SOURCES) \
+	$(xml_strings_SOURCES) $(xml_unecho_SOURCES) $(xml_wc_SOURCES)
 RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
 	html-recursive info-recursive install-data-recursive \
 	install-dvi-recursive install-exec-recursive \
@@ -458,6 +463,7 @@ xml_cp_SOURCES = xml-cp.c $(STDCOMMON) $(STDPARSING) $(STDPRINT) $(COLLECT) $(RC
 xml_mv_SOURCES = xml-mv.c $(STDCOMMON) $(STDPARSING) $(STDPRINT) $(RCM) $(ROLLBACK) $(COLLECT) $(WRAP) $(TEMPF) $(STRLST)
 xml_fixtags_SOURCES = xml-fixtags.c $(STDCOMMON) $(XPATH) $(WRAP) $(OBJSTACK) $(STRLST) $(HTFILT)
 xml_file_SOURCES = xml-file.c $(STDCOMMON) $(STDPARSING) 
+xml_paste_SOURCES = xml-paste.c $(STDCOMMON) $(STDPARSING) $(COLLECT) $(TEMPF) $(STRLST) $(WRAP)
 xml_awk_SOURCES = xml-awk.c $(STDCOMMON) $(STDPARSING) $(VAR) $(COLLECT) $(AWKVM) $(AWKMEM) $(AWKAST) $(SYM)
 xml_awk_LDADD = @LEXLIB@
 all: config.h
@@ -615,6 +621,9 @@ xml-ls$(EXEEXT): $(xml_ls_OBJECTS) $(xml_ls_DEPENDENCIES)
 xml-mv$(EXEEXT): $(xml_mv_OBJECTS) $(xml_mv_DEPENDENCIES) 
 	@rm -f xml-mv$(EXEEXT)
 	$(LINK) $(xml_mv_OBJECTS) $(xml_mv_LDADD) $(LIBS)
+xml-paste$(EXEEXT): $(xml_paste_OBJECTS) $(xml_paste_DEPENDENCIES) 
+	@rm -f xml-paste$(EXEEXT)
+	$(LINK) $(xml_paste_OBJECTS) $(xml_paste_LDADD) $(LIBS)
 xml-printf$(EXEEXT): $(xml_printf_OBJECTS) $(xml_printf_DEPENDENCIES) 
 	@rm -f xml-printf$(EXEEXT)
 	$(LINK) $(xml_printf_OBJECTS) $(xml_printf_LDADD) $(LIBS)
@@ -705,6 +714,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xml-less.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xml-ls.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xml-mv.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xml-paste.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xml-printf.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xml-rm.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xml-sed.Po@am__quote@

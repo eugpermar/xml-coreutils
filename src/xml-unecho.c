@@ -102,7 +102,6 @@ void set_option_unecho(int op, char *optarg) {
 result_t do_leaf_node(void *user, unecho_t *ue) {
 
   parserinfo_unecho_t *pinfo = (parserinfo_unecho_t *)user;
-
   if( pinfo && ue ) {
 
       write_stdout_tempcollect((tempcollect_t*)&ue->sv);
@@ -128,7 +127,10 @@ bool_t create_parserinfo_unecho(parserinfo_unecho_t *pinfo) {
 
     if( checkflag(pinfo->flags,UNECHO_FLAG_SED) ) {
       setflag(&pinfo->lfp.setup.flags,LFP_ABSOLUTE_PATH);
+      setflag(&pinfo->lfp.setup.flags,LFP_ALWAYS_CHARDATA);
     }
+
+    setflag(&pinfo->lfp.setup.flags,LFP_ATTRIBUTES);
 
     setflag(&pinfo->lfp.setup.flags,LFP_PRE_OPEN);
     setflag(&pinfo->lfp.setup.flags,LFP_PRE_CLOSE);
@@ -189,7 +191,6 @@ int main(int argc, char **argv) {
 
     exit_file_handling();
     exit_signal_handling();
-
     free_parserinfo_unecho(&pinfo);
   }
 
