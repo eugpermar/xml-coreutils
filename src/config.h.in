@@ -24,6 +24,9 @@
 /* Define to 1 if you have the `m' library (-lm). */
 #undef HAVE_LIBM
 
+/* Define to 1 if you have the `ncurses' library (-lncurses). */
+#undef HAVE_LIBNCURSES
+
 /* Define to 1 if you have the `slang' library (-lslang). */
 #undef HAVE_LIBSLANG
 
@@ -35,9 +38,6 @@
 
 /* Define to 1 if you have the <mman.h> header file. */
 #undef HAVE_MMAN_H
-
-/* Define to 1 if you have the <netinet/in.h> header file. */
-#undef HAVE_NETINET_IN_H
 
 /* Define to 1 if you have the DOS-style `setmode' function. */
 #undef HAVE_SETMODE_DOS

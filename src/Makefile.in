@@ -41,11 +41,11 @@ bin_PROGRAMS = xml-cat$(EXEEXT) xml-printf$(EXEEXT) xml-echo$(EXEEXT) \
 	xml-fmt$(EXEEXT) xml-wc$(EXEEXT) xml-cut$(EXEEXT) \
 	xml-head$(EXEEXT) xml-unecho$(EXEEXT) xml-sed$(EXEEXT) \
 	xml-rm$(EXEEXT) xml-cp$(EXEEXT) xml-mv$(EXEEXT) \
-	xml-fixtags$(EXEEXT)
+	xml-fixtags$(EXEEXT) xml-awk$(EXEEXT)
 check_PROGRAMS =
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
-	$(srcdir)/config.h.in
+	$(srcdir)/config.h.in awkl.c awkp.c awkp.h
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/setmode.m4 \
 	$(top_srcdir)/configure.ac
@@ -68,143 +68,153 @@ am__objects_8 = cstring.$(OBJEXT)
 am__objects_9 = $(am__objects_1) $(am__objects_2) $(am__objects_3) \
 	$(am__objects_4) $(am__objects_5) $(am__objects_6) \
 	$(am__objects_7) $(am__objects_8)
-am__objects_10 = wrap.$(OBJEXT)
+am__objects_10 = stdparse.$(OBJEXT)
+am__objects_11 = stdselect.$(OBJEXT)
+am__objects_12 = xpath.$(OBJEXT)
+am__objects_13 = xmatch.$(OBJEXT)
+am__objects_14 = xpredicate.$(OBJEXT)
+am__objects_15 = xattribute.$(OBJEXT)
+am__objects_16 = jenkins.$(OBJEXT)
+am__objects_17 = objstack.$(OBJEXT)
+am__objects_18 = nhistory.$(OBJEXT)
+am__objects_19 = $(am__objects_10) $(am__objects_11) $(am__objects_12) \
+	$(am__objects_13) $(am__objects_14) $(am__objects_15) \
+	$(am__objects_16) $(am__objects_17) $(am__objects_18)
+am__objects_20 = tempvar.$(OBJEXT)
+am__objects_21 = tempcollect.$(OBJEXT)
+am__objects_22 = awkl.$(OBJEXT) awkp.$(OBJEXT) awkvm.$(OBJEXT)
+am__objects_23 = awkmem.$(OBJEXT)
+am__objects_24 = awkast.$(OBJEXT)
+am__objects_25 = symbols.$(OBJEXT)
+am_xml_awk_OBJECTS = xml-awk.$(OBJEXT) $(am__objects_9) \
+	$(am__objects_19) $(am__objects_20) $(am__objects_21) \
+	$(am__objects_22) $(am__objects_23) $(am__objects_24) \
+	$(am__objects_25)
+xml_awk_OBJECTS = $(am_xml_awk_OBJECTS)
+xml_awk_DEPENDENCIES =
+am__objects_26 = wrap.$(OBJEXT)
 am_xml_cat_OBJECTS = xml-cat.$(OBJEXT) $(am__objects_9) \
-	$(am__objects_10)
+	$(am__objects_26)
 xml_cat_OBJECTS = $(am_xml_cat_OBJECTS)
 xml_cat_LDADD = $(LDADD)
-am__objects_11 = stdparse.$(OBJEXT)
-am__objects_12 = stdselect.$(OBJEXT)
-am__objects_13 = xpath.$(OBJEXT)
-am__objects_14 = xmatch.$(OBJEXT)
-am__objects_15 = xpredicate.$(OBJEXT)
-am__objects_16 = xattribute.$(OBJEXT)
-am__objects_17 = jenkins.$(OBJEXT)
-am__objects_18 = objstack.$(OBJEXT)
-am__objects_19 = nhistory.$(OBJEXT)
-am__objects_20 = $(am__objects_11) $(am__objects_12) $(am__objects_13) \
-	$(am__objects_14) $(am__objects_15) $(am__objects_16) \
-	$(am__objects_17) $(am__objects_18) $(am__objects_19)
-am__objects_21 = stdprint.$(OBJEXT)
-am__objects_22 = tempcollect.$(OBJEXT)
-am__objects_23 = rcm.$(OBJEXT)
-am__objects_24 = rollback.$(OBJEXT)
-am__objects_25 = tempfile.$(OBJEXT)
-am__objects_26 = stringlist.$(OBJEXT)
+am__objects_27 = stdprint.$(OBJEXT)
+am__objects_28 = rcm.$(OBJEXT)
+am__objects_29 = rollback.$(OBJEXT)
+am__objects_30 = tempfile.$(OBJEXT)
+am__objects_31 = stringlist.$(OBJEXT)
 am_xml_cp_OBJECTS = xml-cp.$(OBJEXT) $(am__objects_9) \
-	$(am__objects_20) $(am__objects_21) $(am__objects_22) \
-	$(am__objects_23) $(am__objects_24) $(am__objects_10) \
-	$(am__objects_25) $(am__objects_26)
+	$(am__objects_19) $(am__objects_27) $(am__objects_21) \
+	$(am__objects_28) $(am__objects_29) $(am__objects_26) \
+	$(am__objects_30) $(am__objects_31)
 xml_cp_OBJECTS = $(am_xml_cp_OBJECTS)
 xml_cp_LDADD = $(LDADD)
-am__objects_27 = interval.$(OBJEXT)
+am__objects_32 = interval.$(OBJEXT)
 am_xml_cut_OBJECTS = xml-cut.$(OBJEXT) $(am__objects_9) \
-	$(am__objects_20) $(am__objects_10) $(am__objects_21) \
-	$(am__objects_22) $(am__objects_27)
+	$(am__objects_19) $(am__objects_26) $(am__objects_27) \
+	$(am__objects_21) $(am__objects_32)
 xml_cut_OBJECTS = $(am_xml_cut_OBJECTS)
 xml_cut_LDADD = $(LDADD)
-am__objects_28 = format.$(OBJEXT)
-am__objects_29 = echo.$(OBJEXT)
-am__objects_30 = tempvar.$(OBJEXT)
+am__objects_33 = format.$(OBJEXT)
+am__objects_34 = echo.$(OBJEXT)
 am_xml_echo_OBJECTS = xml-echo.$(OBJEXT) $(am__objects_1) \
-	$(am__objects_10) $(am__objects_4) $(am__objects_5) \
-	$(am__objects_28) $(am__objects_13) $(am__objects_6) \
-	$(am__objects_2) $(am__objects_29) $(am__objects_7) \
-	$(am__objects_17) $(am__objects_22) $(am__objects_30) \
+	$(am__objects_26) $(am__objects_4) $(am__objects_5) \
+	$(am__objects_33) $(am__objects_12) $(am__objects_6) \
+	$(am__objects_2) $(am__objects_34) $(am__objects_7) \
+	$(am__objects_16) $(am__objects_21) $(am__objects_20) \
 	$(am__objects_8)
 xml_echo_OBJECTS = $(am_xml_echo_OBJECTS)
 xml_echo_LDADD = $(LDADD)
 am_xml_file_OBJECTS = xml-file.$(OBJEXT) $(am__objects_9) \
-	$(am__objects_20)
+	$(am__objects_19)
 xml_file_OBJECTS = $(am_xml_file_OBJECTS)
 xml_file_LDADD = $(LDADD)
 am_xml_find_OBJECTS = xml-find.$(OBJEXT) $(am__objects_9) \
-	$(am__objects_20) $(am__objects_26) $(am__objects_22) \
-	$(am__objects_10) $(am__objects_25)
+	$(am__objects_19) $(am__objects_31) $(am__objects_21) \
+	$(am__objects_26) $(am__objects_30)
 xml_find_OBJECTS = $(am_xml_find_OBJECTS)
 xml_find_LDADD = $(LDADD)
-am__objects_31 = htfilter.$(OBJEXT)
+am__objects_35 = htfilter.$(OBJEXT)
 am_xml_fixtags_OBJECTS = xml-fixtags.$(OBJEXT) $(am__objects_9) \
-	$(am__objects_13) $(am__objects_10) $(am__objects_18) \
-	$(am__objects_26) $(am__objects_31)
+	$(am__objects_12) $(am__objects_26) $(am__objects_17) \
+	$(am__objects_31) $(am__objects_35)
 xml_fixtags_OBJECTS = $(am_xml_fixtags_OBJECTS)
 xml_fixtags_LDADD = $(LDADD)
 am_xml_fmt_OBJECTS = xml-fmt.$(OBJEXT) $(am__objects_9) \
-	$(am__objects_20) $(am__objects_21)
+	$(am__objects_19) $(am__objects_27)
 xml_fmt_OBJECTS = $(am_xml_fmt_OBJECTS)
 xml_fmt_LDADD = $(LDADD)
-am__objects_32 = cursor.$(OBJEXT) cursormgr.$(OBJEXT) skip.$(OBJEXT) \
+am__objects_36 = cursor.$(OBJEXT) cursormgr.$(OBJEXT) skip.$(OBJEXT) \
 	cursorrep.$(OBJEXT)
-am__objects_33 = smatch.$(OBJEXT)
-am__objects_34 = blockmgr.$(OBJEXT) fbreader.$(OBJEXT) \
+am__objects_37 = smatch.$(OBJEXT)
+am__objects_38 = blockmgr.$(OBJEXT) fbreader.$(OBJEXT) \
 	fbparser.$(OBJEXT)
 am_xml_grep_OBJECTS = xml-grep.$(OBJEXT) $(am__objects_9) \
-	$(am__objects_20) $(am__objects_32) $(am__objects_33) \
-	$(am__objects_34) $(am__objects_22) $(am__objects_10) \
-	$(am__objects_30) $(am__objects_27) $(am__objects_26)
+	$(am__objects_19) $(am__objects_36) $(am__objects_37) \
+	$(am__objects_38) $(am__objects_21) $(am__objects_26) \
+	$(am__objects_20) $(am__objects_32) $(am__objects_31)
 xml_grep_OBJECTS = $(am_xml_grep_OBJECTS)
 xml_grep_LDADD = $(LDADD)
 am_xml_head_OBJECTS = xml-head.$(OBJEXT) $(am__objects_9) \
-	$(am__objects_20) $(am__objects_21)
+	$(am__objects_19) $(am__objects_27)
 xml_head_OBJECTS = $(am_xml_head_OBJECTS)
 xml_head_LDADD = $(LDADD)
-am__objects_35 = lessui.$(OBJEXT) lessdisp.$(OBJEXT) \
+am__objects_39 = lessui.$(OBJEXT) lessdisp.$(OBJEXT) \
 	lessrend.$(OBJEXT)
-am__objects_36 = attlist.$(OBJEXT)
+am__objects_40 = attlist.$(OBJEXT)
 am_xml_less_OBJECTS = xml-less.$(OBJEXT) $(am__objects_1) \
-	$(am__objects_4) $(am__objects_6) $(am__objects_34) \
-	$(am__objects_5) $(am__objects_32) $(am__objects_2) \
-	$(am__objects_35) $(am__objects_7) $(am__objects_36) \
-	$(am__objects_17) $(am__objects_13) $(am__objects_8) \
-	$(am__objects_25) $(am__objects_26)
+	$(am__objects_4) $(am__objects_6) $(am__objects_38) \
+	$(am__objects_5) $(am__objects_36) $(am__objects_2) \
+	$(am__objects_39) $(am__objects_7) $(am__objects_40) \
+	$(am__objects_16) $(am__objects_12) $(am__objects_8) \
+	$(am__objects_30) $(am__objects_31)
 xml_less_OBJECTS = $(am_xml_less_OBJECTS)
 xml_less_DEPENDENCIES =
 am_xml_ls_OBJECTS = xml-ls.$(OBJEXT) $(am__objects_9) \
-	$(am__objects_20) $(am__objects_10)
+	$(am__objects_19) $(am__objects_26)
 xml_ls_OBJECTS = $(am_xml_ls_OBJECTS)
 xml_ls_LDADD = $(LDADD)
 am_xml_mv_OBJECTS = xml-mv.$(OBJEXT) $(am__objects_9) \
-	$(am__objects_20) $(am__objects_21) $(am__objects_23) \
-	$(am__objects_24) $(am__objects_22) $(am__objects_10) \
-	$(am__objects_25) $(am__objects_26)
+	$(am__objects_19) $(am__objects_27) $(am__objects_28) \
+	$(am__objects_29) $(am__objects_21) $(am__objects_26) \
+	$(am__objects_30) $(am__objects_31)
 xml_mv_OBJECTS = $(am_xml_mv_OBJECTS)
 xml_mv_LDADD = $(LDADD)
 am_xml_printf_OBJECTS = xml-printf.$(OBJEXT) $(am__objects_9) \
-	$(am__objects_20) $(am__objects_22) $(am__objects_26) \
-	$(am__objects_28) $(am__objects_30)
+	$(am__objects_19) $(am__objects_21) $(am__objects_31) \
+	$(am__objects_33) $(am__objects_20)
 xml_printf_OBJECTS = $(am_xml_printf_OBJECTS)
 xml_printf_LDADD = $(LDADD)
 am_xml_rm_OBJECTS = xml-rm.$(OBJEXT) $(am__objects_9) \
-	$(am__objects_20) $(am__objects_21) $(am__objects_23) \
-	$(am__objects_24) $(am__objects_22) $(am__objects_10) \
-	$(am__objects_25) $(am__objects_26)
+	$(am__objects_19) $(am__objects_27) $(am__objects_28) \
+	$(am__objects_29) $(am__objects_21) $(am__objects_26) \
+	$(am__objects_30) $(am__objects_31)
 xml_rm_OBJECTS = $(am_xml_rm_OBJECTS)
 xml_rm_LDADD = $(LDADD)
-am__objects_37 = leafparse.$(OBJEXT)
-am__objects_38 = leafnode.$(OBJEXT)
-am__objects_39 = $(am__objects_37) $(am__objects_12) $(am__objects_13) \
-	$(am__objects_14) $(am__objects_15) $(am__objects_16) \
-	$(am__objects_38) $(am__objects_17) $(am__objects_18) \
-	$(am__objects_19)
-am__objects_40 = unecho.$(OBJEXT)
-am__objects_41 = sed.$(OBJEXT)
+am__objects_41 = leafparse.$(OBJEXT)
+am__objects_42 = leafnode.$(OBJEXT)
+am__objects_43 = $(am__objects_41) $(am__objects_11) $(am__objects_12) \
+	$(am__objects_13) $(am__objects_14) $(am__objects_15) \
+	$(am__objects_42) $(am__objects_16) $(am__objects_17) \
+	$(am__objects_18)
+am__objects_44 = unecho.$(OBJEXT)
+am__objects_45 = sed.$(OBJEXT)
 am_xml_sed_OBJECTS = xml-sed.$(OBJEXT) $(am__objects_9) \
-	$(am__objects_39) $(am__objects_30) $(am__objects_22) \
-	$(am__objects_40) $(am__objects_41) $(am__objects_29) \
-	$(am__objects_10) $(am__objects_28) $(am__objects_26)
+	$(am__objects_43) $(am__objects_20) $(am__objects_21) \
+	$(am__objects_44) $(am__objects_45) $(am__objects_34) \
+	$(am__objects_26) $(am__objects_33) $(am__objects_31)
 xml_sed_OBJECTS = $(am_xml_sed_OBJECTS)
 xml_sed_LDADD = $(LDADD)
 am_xml_strings_OBJECTS = xml-strings.$(OBJEXT) $(am__objects_9) \
-	$(am__objects_20)
+	$(am__objects_19)
 xml_strings_OBJECTS = $(am_xml_strings_OBJECTS)
 xml_strings_LDADD = $(LDADD)
 am_xml_unecho_OBJECTS = xml-unecho.$(OBJEXT) $(am__objects_9) \
-	$(am__objects_39) $(am__objects_30) $(am__objects_22) \
-	$(am__objects_40)
+	$(am__objects_43) $(am__objects_20) $(am__objects_21) \
+	$(am__objects_44)
 xml_unecho_OBJECTS = $(am_xml_unecho_OBJECTS)
 xml_unecho_LDADD = $(LDADD)
 am_xml_wc_OBJECTS = xml-wc.$(OBJEXT) $(am__objects_9) \
-	$(am__objects_20)
+	$(am__objects_19)
 xml_wc_OBJECTS = $(am_xml_wc_OBJECTS)
 xml_wc_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@
@@ -215,19 +225,22 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(xml_cat_SOURCES) $(xml_cp_SOURCES) $(xml_cut_SOURCES) \
-	$(xml_echo_SOURCES) $(xml_file_SOURCES) $(xml_find_SOURCES) \
-	$(xml_fixtags_SOURCES) $(xml_fmt_SOURCES) $(xml_grep_SOURCES) \
-	$(xml_head_SOURCES) $(xml_less_SOURCES) $(xml_ls_SOURCES) \
-	$(xml_mv_SOURCES) $(xml_printf_SOURCES) $(xml_rm_SOURCES) \
-	$(xml_sed_SOURCES) $(xml_strings_SOURCES) \
+LEXCOMPILE = $(LEX) $(LFLAGS) $(AM_LFLAGS)
+YLWRAP = $(top_srcdir)/config/ylwrap
+YACCCOMPILE = $(YACC) $(YFLAGS) $(AM_YFLAGS)
+SOURCES = $(xml_awk_SOURCES) $(xml_cat_SOURCES) $(xml_cp_SOURCES) \
+	$(xml_cut_SOURCES) $(xml_echo_SOURCES) $(xml_file_SOURCES) \
+	$(xml_find_SOURCES) $(xml_fixtags_SOURCES) $(xml_fmt_SOURCES) \
+	$(xml_grep_SOURCES) $(xml_head_SOURCES) $(xml_less_SOURCES) \
+	$(xml_ls_SOURCES) $(xml_mv_SOURCES) $(xml_printf_SOURCES) \
+	$(xml_rm_SOURCES) $(xml_sed_SOURCES) $(xml_strings_SOURCES) \
 	$(xml_unecho_SOURCES) $(xml_wc_SOURCES)
-DIST_SOURCES = $(xml_cat_SOURCES) $(xml_cp_SOURCES) $(xml_cut_SOURCES) \
-	$(xml_echo_SOURCES) $(xml_file_SOURCES) $(xml_find_SOURCES) \
-	$(xml_fixtags_SOURCES) $(xml_fmt_SOURCES) $(xml_grep_SOURCES) \
-	$(xml_head_SOURCES) $(xml_less_SOURCES) $(xml_ls_SOURCES) \
-	$(xml_mv_SOURCES) $(xml_printf_SOURCES) $(xml_rm_SOURCES) \
-	$(xml_sed_SOURCES) $(xml_strings_SOURCES) \
+DIST_SOURCES = $(xml_awk_SOURCES) $(xml_cat_SOURCES) $(xml_cp_SOURCES) \
+	$(xml_cut_SOURCES) $(xml_echo_SOURCES) $(xml_file_SOURCES) \
+	$(xml_find_SOURCES) $(xml_fixtags_SOURCES) $(xml_fmt_SOURCES) \
+	$(xml_grep_SOURCES) $(xml_head_SOURCES) $(xml_less_SOURCES) \
+	$(xml_ls_SOURCES) $(xml_mv_SOURCES) $(xml_printf_SOURCES) \
+	$(xml_rm_SOURCES) $(xml_sed_SOURCES) $(xml_strings_SOURCES) \
 	$(xml_unecho_SOURCES) $(xml_wc_SOURCES)
 RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
 	html-recursive info-recursive install-data-recursive \
@@ -275,7 +288,7 @@ AMTAR = @AMTAR@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
-AWK = awkl.l awkp.y awkvm.h awkvm.c
+AWK = @AWK@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
@@ -411,9 +424,9 @@ STDPARSE = stdparse.h stdparse.c
 STDPRINT = stdprint.h stdprint.c
 STDSEL = stdselect.h stdselect.c
 LFPARSE = leafparse.h leafparse.c
-ECHO = echo.h echo.c
+ECHOC = echo.h echo.c
 UNECHO = unecho.h unecho.c
-SED = sed.h sed.c
+SEDC = sed.h sed.c
 RCM = rcm.h rcm.c
 ROLLBACK = rollback.h rollback.c
 NHIST = nhistory.h nhistory.c
@@ -421,14 +434,15 @@ INTERVAL = interval.h interval.c
 HTFILT = htfilter.h htfilter.c
 AWKMEM = awkmem.h awkmem.c 
 AWKAST = awkast.h awkast.c
+AWKVM = awkl.l awkp.y awkvm.h awkvm.c
 STDCOMMON = $(COMMON) $(PARSER) $(FILELST) $(IO) $(STDOUT) $(MEM) $(ENTITIES) $(CSTRING)
 STDPARSING = $(STDPARSE) $(STDSEL) $(XPATH) $(XMATCH) $(XPRED) $(XATT) $(HASH) $(OBJSTACK) $(NHIST)
 LEAFPARSING = $(LFPARSE) $(STDSEL) $(XPATH) $(XMATCH) $(XPRED) $(XATT) $(LF) $(HASH) $(OBJSTACK) $(NHIST) 
 xml_cat_SOURCES = xml-cat.c $(STDCOMMON) $(WRAP)
 xml_printf_SOURCES = xml-printf.c $(STDCOMMON) $(STDPARSING) $(COLLECT) $(STRLST) $(FORMAT) $(VAR)
-xml_echo_SOURCES = xml-echo.c $(COMMON) $(WRAP) $(IO) $(STDOUT) $(FORMAT) $(XPATH) $(MEM) $(PARSER) $(ECHO) $(ENTITIES) $(HASH) $(COLLECT) $(VAR) $(CSTRING)
+xml_echo_SOURCES = xml-echo.c $(COMMON) $(WRAP) $(IO) $(STDOUT) $(FORMAT) $(XPATH) $(MEM) $(PARSER) $(ECHOC) $(ENTITIES) $(HASH) $(COLLECT) $(VAR) $(CSTRING)
 xml_less_SOURCES = xml-less.c $(COMMON) $(IO) $(MEM) $(BLOCKS) $(STDOUT) $(CURSOR) $(PARSER) $(LESSUI) $(ENTITIES) $(ATTLST) $(HASH) $(XPATH) $(CSTRING) $(TEMPF) $(STRLST)
-xml_less_LDADD = -lslang
+xml_less_LDADD = -lslang -lncurses
 xml_strings_SOURCES = xml-strings.c $(STDCOMMON) $(STDPARSING)
 xml_ls_SOURCES = xml-ls.c $(STDCOMMON) $(STDPARSING) $(WRAP)  
 xml_find_SOURCES = xml-find.c $(STDCOMMON) $(STDPARSING) $(STRLST) $(COLLECT) $(WRAP) $(TEMPF)
@@ -438,19 +452,19 @@ xml_wc_SOURCES = xml-wc.c $(STDCOMMON) $(STDPARSING)
 xml_cut_SOURCES = xml-cut.c $(STDCOMMON) $(STDPARSING) $(WRAP) $(STDPRINT) $(COLLECT) $(INTERVAL)
 xml_head_SOURCES = xml-head.c $(STDCOMMON) $(STDPARSING) $(STDPRINT)
 xml_unecho_SOURCES = xml-unecho.c $(STDCOMMON) $(LEAFPARSING) $(VAR) $(COLLECT) $(UNECHO)
-xml_sed_SOURCES = xml-sed.c $(STDCOMMON) $(LEAFPARSING) $(VAR) $(COLLECT) $(UNECHO) $(SED) $(ECHO) $(WRAP) $(FORMAT) $(STRLST)
+xml_sed_SOURCES = xml-sed.c $(STDCOMMON) $(LEAFPARSING) $(VAR) $(COLLECT) $(UNECHO) $(SEDC) $(ECHOC) $(WRAP) $(FORMAT) $(STRLST)
 xml_rm_SOURCES = xml-rm.c $(STDCOMMON) $(STDPARSING) $(STDPRINT) $(RCM) $(ROLLBACK) $(COLLECT) $(WRAP) $(TEMPF) $(STRLST)
 xml_cp_SOURCES = xml-cp.c $(STDCOMMON) $(STDPARSING) $(STDPRINT) $(COLLECT) $(RCM) $(ROLLBACK) $(WRAP) $(TEMPF) $(STRLST)
 xml_mv_SOURCES = xml-mv.c $(STDCOMMON) $(STDPARSING) $(STDPRINT) $(RCM) $(ROLLBACK) $(COLLECT) $(WRAP) $(TEMPF) $(STRLST)
 xml_fixtags_SOURCES = xml-fixtags.c $(STDCOMMON) $(XPATH) $(WRAP) $(OBJSTACK) $(STRLST) $(HTFILT)
 xml_file_SOURCES = xml-file.c $(STDCOMMON) $(STDPARSING) 
-xml_awk_SOURCES = xml-awk.c $(STDCOMMON) $(STDPARSING) $(VAR) $(COLLECT) $(AWK) $(AWKMEM) $(AWKAST) $(SYM)
+xml_awk_SOURCES = xml-awk.c $(STDCOMMON) $(STDPARSING) $(VAR) $(COLLECT) $(AWKVM) $(AWKMEM) $(AWKAST) $(SYM)
 xml_awk_LDADD = @LEXLIB@
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
 .SUFFIXES:
-.SUFFIXES: .c .o .obj
+.SUFFIXES: .c .l .o .obj .y
 $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -554,6 +568,14 @@ installcheck-binPROGRAMS: $(bin_PROGRAMS)
 
 clean-checkPROGRAMS:
 	-test -z "$(check_PROGRAMS)" || rm -f $(check_PROGRAMS)
+awkp.h: awkp.c
+	@if test ! -f $@; then \
+	  rm -f awkp.c; \
+	  $(MAKE) $(AM_MAKEFLAGS) awkp.c; \
+	else :; fi
+xml-awk$(EXEEXT): $(xml_awk_OBJECTS) $(xml_awk_DEPENDENCIES) 
+	@rm -f xml-awk$(EXEEXT)
+	$(LINK) $(xml_awk_OBJECTS) $(xml_awk_LDADD) $(LIBS)
 xml-cat$(EXEEXT): $(xml_cat_OBJECTS) $(xml_cat_DEPENDENCIES) 
 	@rm -f xml-cat$(EXEEXT)
 	$(LINK) $(xml_cat_OBJECTS) $(xml_cat_LDADD) $(LIBS)
@@ -619,6 +641,11 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/attlist.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/awkast.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/awkl.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/awkmem.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/awkp.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/awkvm.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/blockmgr.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/common.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cstring.Po@am__quote@
@@ -656,6 +683,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/stdprint.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/stdselect.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/stringlist.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/symbols.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tempcollect.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tempfile.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tempvar.Po@am__quote@
@@ -663,6 +691,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/wrap.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xattribute.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xmatch.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xml-awk.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xml-cat.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xml-cp.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xml-cut.Po@am__quote@
@@ -698,6 +727,12 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(COMPILE) -c `$(CYGPATH_W) '$<'`
+
+.l.c:
+	$(am__skiplex) $(SHELL) $(YLWRAP) $< $(LEX_OUTPUT_ROOT).c $@ -- $(LEXCOMPILE)
+
+.y.c:
+	$(am__skipyacc) $(SHELL) $(YLWRAP) $< y.tab.c $@ y.tab.h $*.h y.output $*.output -- $(YACCCOMPILE)
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run `make' without going through this Makefile.
@@ -926,6 +961,9 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
+	-rm -f awkl.c
+	-rm -f awkp.c
+	-rm -f awkp.h
 clean: clean-recursive
 
 clean-am: clean-binPROGRAMS clean-checkPROGRAMS clean-generic \

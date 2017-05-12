@@ -216,6 +216,7 @@ AUX_DIST = config/config.guess \
 	config/missing
 
 SUBDIRS = doc src man
+EXTRA_DIST = SFX
 all: all-recursive
 
 .SUFFIXES:
@@ -697,6 +698,10 @@ dist-hook:
 	for file in $(AUX_DIST); do \
 		cp $$file $(distdir)/$$file; \
 	done
+
+sfx:
+	make dist && (cat SFX $(distdir).tar.gz > $(distdir).sfx.sh)
+	test -e $(distdir).sfx.sh && chmod +x $(distdir).sfx.sh
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
